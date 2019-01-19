@@ -11,19 +11,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AlgebraApp = function (_React$Component) {
   _inherits(AlgebraApp, _React$Component);
 
-  function AlgebraApp() {
+  function AlgebraApp(props) {
     _classCallCheck(this, AlgebraApp);
 
-    return _possibleConstructorReturn(this, (AlgebraApp.__proto__ || Object.getPrototypeOf(AlgebraApp)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (AlgebraApp.__proto__ || Object.getPrototypeOf(AlgebraApp)).call(this, props));
+
+    _this.state = { value: ' ' };
+    /* this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this); */
+
+    return _this;
   }
 
   _createClass(AlgebraApp, [{
     key: 'render',
     value: function render() {
       return React.createElement(
-        'h1',
+        'div',
         null,
-        'Algebra App'
+        React.createElement(
+          'h1',
+          null,
+          'Algebra App'
+        ),
+        React.createElement(
+          'h2',
+          null,
+          'Type In A Fraction =>'
+        ),
+        React.createElement(
+          'form',
+          null,
+          React.createElement(
+            'label',
+            null,
+            'Fraction:',
+            React.createElement('input', { type: 'text', value: this.state.value })
+          )
+        )
       );
     }
   }]);
