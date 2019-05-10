@@ -1,16 +1,22 @@
+//to do: 1. differentiate the array - fractions, from members of the array - fraction;
+//maybe make a const called fraction, and change the class name to fractions
+//2. we will render this in the return statement:
+//<div>
+//  {this.props.fractions.map((fraction) => <Fraction key={fraction} />)}
+//</div>
 class AlgebraApp extends React.Component {
   constructor(props){
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this); 
-    // this.state = {value: props.value};
+   
     this.state = {
-      
-      fraction: props.fraction
+      fraction: props.fraction,
+      convertedFraction: props.convertedFraction
     };
   };
   
-  //write the habndleSubmit function w/ a setState inside it :
+  
   
   
   handleSubmit(fraction) {
@@ -20,48 +26,47 @@ class AlgebraApp extends React.Component {
     console.log('submitted')
     
     this.setState(() => ({ 
-      fraction: this.state.fraction
+      fraction: this.state.fraction,
     }));
   };
     
   handleChange() {
     this.setState({
       fraction: this.state.fraction});
-    // alert ('handleChange is working');
-    console.log(this.state.fraction)
-    // this.setState({value: event.target.value});
-    // this.setState({value: state.name.value});
-    
-    console.log('typing!!')
+      console.log(this.state.fraction)
   }
   
   render(){
+    
     return (
       <div>
-        <Header/>
-          <h2>Type In A Fraction =></h2>
-        <Fraction
-          // fraction={this.state.fraction}
-          // wholeNumber={this.state.wholeNumber}
-          // wholeNumber={this.state.wholeNumber}
-          // handleChange={this.handleChange}
+        <Header />
+          
+        <Fraction 
+          fraction={fraction}
           handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+        />
+        <ConvertedFraction
+          convertedFraction={convertedFraction}
         />
       </div>
     );
   };
-};  
-// const Action = (props) => { 
-//change Fraction to a class
+}; 
 
-// class NameForm extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {value: ''};
+ const ConvertedFraction = (props) => {
+    return (
+      <div>
 
-//     this.handleChange = this.handleChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
+      </div>
+    )
+  };
+AlgebraApp.defaultProps = {
+  fraction: [],
+  convertedFraction: []
+};
+
 const Header = (props) => {
   return (
     <div>
@@ -74,55 +79,82 @@ Header.defaultProps = {
   title: 'Algebra App'
 };
 
+class Convert extends React.Component { 
+  constructor(props){
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    
+  };  
+  alert ('You just submitted the fraction'+ this.state.fraction);
+  e.preventDefault();
+  console.log('submitted')
+  
+  this.setState(() => ({ 
+    fraction: this.state.fraction,
+  }));
+};
+class ConvertedFraction extends React.Component {
+  constructor(props){
+  super(props);
+  };
+  render(){
+    return (
+      <div>
+        <p>This is from ConvertedFraction</p>
+        {this.props.convertedFraction}
+      </div>
+    );
+  };
+}
 class Fraction extends React.Component {
   constructor(props) {
-    super(props);
-    // this.state = {wholeNumber: props.wholeNumber,
-    //   fraction: props.fraction};
-    this.state = {
-      value: ''}
-      // fraction: props.fraction};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  super(props);
+  this.state = {
+    fraction: {props.fraction[0]},
+    convertedFraction: {this.state.convertedFraction}
+  } 
+   
   };
   handleChange(event) {
-    this.setState({value: event.target.value});
-    // this.setState({fraction: event.target.fraction});
+   this.setState({ [event.target.name]: event.target.value});
   }
-  handleSubmit(event) {
-    
-    // alert ('You just submitted the fraction '+ this.state.fraction);
-    alert ('You just submitted the fraction '+ this.state.value);
-    console.log('submitted');
-    event.preventDefault();
-    // const fraction = e.target.elements.option.value;
-    // this.setState(() => ({ 
-    //   fraction: this.state.fraction
-    // }));
-  };
+  
+  
 
     
   render(){
     return  (
-        <div>  
-          <form onSubmit={this.handleSubmit}>
-            <br />
-            <label> 
-              Type Fraction Here:
-              <input 
-                type="number" 
-                // fraction={this.state.fraction}
-                value={this.state.value}
-                onChange={this.handleChange} 
-                // value={props.fraction} 
-              />
-            </label>
-            <br />
-            <input type="submit" value="Submit"/>
-          </form>
-        </div>
+      <div>  
+        <form onSubmit={this.handleSubmit}>
+          <br />
+          <label> 
+            Type Fraction Here:
+            <input 
+              type="number" 
+              name="fraction"
+              onChange={this.handleChange} 
+            />
+          </label>
+          <br />
+          <button onClick={this.handleSubmit}>
+            Convert the Fraction
+          </button>
+        </form>
+          <br />
+        Converted Fraction:
+          {this.state.convertedFraction}
+      </div>
+        
     );
   };
+
+  // const ConvertedFraction = (props) => {
+  //   return (
+  //     <div>
+
+  //     </div>
+  //   )
+  // }
 };
 
       
